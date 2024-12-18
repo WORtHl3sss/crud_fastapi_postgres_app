@@ -1,6 +1,6 @@
 HOWTO start everything up:
 
-1. Clone venv for all the libraries
+1. Clone and activate venv for all the libraries
 2. Download pgadmin adn learn how to set up postgresql server (or find a setup)
 3. Run the main file using "uvicorn main:app --reload"
 4. Profit!😎
