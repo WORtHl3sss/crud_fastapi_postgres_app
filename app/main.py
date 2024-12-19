@@ -1,7 +1,9 @@
-from fastapi import FastAPI, HTTPException, Depends, Query, Body
-from sqlalchemy import select
+from fastapi import FastAPI, HTTPException, Depends, Query
+import sqlalchemy
 from sqlmodel import Session
-from typing import Annotated, Any
+from typing import Annotated
+from json import dumps
+
 
 from models import *
 from db import *
@@ -13,15 +15,16 @@ init_db()
 #FIXME
 # Ручка для получения списка имеющихся в БД товаров
 @app.get("/items",
-         response_model=list[Any],
-         description="Запрос на получение списка имеющихся в БД товаров",
-         deprecated=True)
+         response_model=list[Item],
+         description="Запрос на получение списка имеющихся в БД товаров",)
 async def read_items(
     session: Annotated[Session, Depends(get_session)],
     offset: int = 0,
     limit: Annotated[int, Query(le=100)] = 100,
 ):
-    items = session.exec(select(Item).offset(offset).limit(limit)).fetchall()
+    statement = sqlalchemy.select(Item).offset(offset).limit(limit)
+    results = session.exec(statement)
+    items = [result[0] for result in results] #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!FTW
     return items
 
 
