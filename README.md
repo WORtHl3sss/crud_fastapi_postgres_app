@@ -7,7 +7,8 @@ HOWTO start everything up:
 
 TODOs:
 
-1. Fix the deprecated get_items (probably pydantic module issue or skill issue 😢 in async, tbd)
+1. ~~Fix the deprecated get_items (probably pydantic module issue or skill issue 😢 in async, tbd)~~
+   Move from ORM's to a pure sql 😎 
 2. Add authorization and authentication (involves jwt, another db table with login, hashed passwords, etc)
 3. Add caching using Redis or Rabbitmq
 4. Dockerize everything
